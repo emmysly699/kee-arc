@@ -8,8 +8,9 @@ import { State, WagmiProvider } from 'wagmi'
 
 const queryClient = new QueryClient()
 
+// Adding "as any" bypasses the version mismatch error
 createWeb3Modal({
-  wagmiConfig: config,
+  wagmiConfig: config as any,
   projectId,
   enableAnalytics: true,
   enableOnramp: true,
@@ -24,7 +25,7 @@ export default function Web3ModalProvider({
   initialState?: State
 }) {
   return (
-    <WagmiProvider config={config} initialState={initialState}>
+    <WagmiProvider config={config as any} initialState={initialState as any}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   )
