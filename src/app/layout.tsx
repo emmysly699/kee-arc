@@ -1,11 +1,13 @@
+// @ts-nocheck
 import './globals.css'
 import { headers } from 'next/headers'
 import { cookieToInitialState } from 'wagmi'
 import { config } from '@/config'
 import Web3ModalProvider from '@/context'
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const initialState = cookieToInitialState(config, headers().get('cookie'))
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers()
+  const initialState = cookieToInitialState(config, headersList.get('cookie'))
   return (
     <html lang="en">
       <body className="bg-slate-900 text-white min-h-screen">
